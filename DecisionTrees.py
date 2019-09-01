@@ -8,7 +8,6 @@
 # Each row is an example formatted as:
 # Feature, Feature, Label.
 
-
 def unique_vals(dataset: [[any]], col: int) -> set:
     """Find unique values for a column (Avoids repeated features)"""
     return set([row[col] for row in dataset])
@@ -178,20 +177,19 @@ def printTree(headNode, index=''):
 
 
 
-def classify(data, node: Decision_Node):
+def _classify(data, node: Decision_Node):
     if isinstance(node, Leaf):
         return node.prediction
 
     if node.question.match(data):
-        return classify(data, node.true_node)
+        return _classify(data, node.true_node)
 
     else:
-        return classify(data, node.false_node)
+        return _classify(data, node.false_node)
 
 
-def run_classifier(input, T):
-    prediction = classify(input, T)
-
+def run_classifier(input, T) -> dict:
+    prediction = _classify(input, T)
     total = sum(prediction.values())
     probs = {}
     for lbl in prediction:
@@ -199,24 +197,26 @@ def run_classifier(input, T):
 
     return probs
 
+# Data headers will be set by the data used to train the classifier.
+data_headers = []
 
-################
-# Demo:
-input = ['Yellow', '3']
-
-training_data = [
-    ['Green', 3, 'Apple'],
-    ['Yellow', 3, 'Apple'],
-    ['Red', 1, 'Grape'],
-    ['Red', 1, 'Grape'],
-    ['Yellow', 3, 'Lemon'],
-]
-
-data_headers = ['Color', 'Size', 'Label']
-T = build_tree(training_data)
-
-
-# Testing the classifier with the training data.
-for data_sample in training_data:
-    result = 'Actual %s, Predicted %s' % (data_sample[-1], str(run_classifier(data_sample, T)))
-    print(result)
+#
+# ################
+# # Demo:
+# input = ['Yellow', '3']
+#
+# training_data = [
+#     ['Green', 3, 'Apple'],
+#     ['Yellow', 3, 'Apple'],
+#     ['Red', 1, 'Grape'],
+#     ['Red', 1, 'Grape'],
+#     ['Yellow', 3, 'Lemon'],
+# ]
+#
+# T = build_tree(training_data)
+#
+#
+# # Testing the classifier with the training data.
+# for data_sample in training_data:
+#     result = 'Actual %s, Predicted %s' % (data_sample[-1], str(run_classifier(data_sample, T)))
+#     print(result)
