@@ -164,20 +164,18 @@ def build_tree(data):
 
     return Decision_Node(question, true_branch, false_branch)
 
+def printTree(headNode, index=''):
 
-def print_tree(node, spacing=""):
-    """Utility method to see the structure of the decision tree"""
-    if isinstance(node, Leaf):
-        print(spacing + str(node.prediction))
+    if isinstance(headNode, Leaf):
+        print(index + 'Predict =', headNode.prediction)
         return
 
-    print(spacing + str(node.question))
+    print(index + str(headNode.question))
+    print(index + 'True')
+    printTree(headNode.true_node,index+'  ')
+    print(index + 'False')
+    printTree(headNode.false_node, index + '  ')
 
-    print(spacing + '--> True:')
-    print_tree(node.true_node, spacing + "   ")
-
-    print(spacing + '--> False:')
-    print_tree(node.false_node, spacing + "   ")
 
 
 def classify(data, node: Decision_Node):
@@ -217,7 +215,8 @@ training_data = [
 data_headers = ['Color', 'Size', 'Label']
 T = build_tree(training_data)
 
-# Testing the classifier
+
+# Testing the classifier with the training data.
 for data_sample in training_data:
     result = 'Actual %s, Predicted %s' % (data_sample[-1], str(run_classifier(data_sample, T)))
     print(result)
