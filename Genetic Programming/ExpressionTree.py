@@ -1,5 +1,6 @@
 import random
 
+
 ###
 # Implementing a Random Expression Tree (RET).
 # A RET is composed of Expression Nodes, these Nodes can take any symbol from a set of real numbers,
@@ -25,7 +26,8 @@ class _RandomExpressionTree:
         """Head Node must always be an operation."""
         if _ExpressionNode.is_operation(symbol):
             self.head: _ExpressionNode = _ExpressionNode(symbol)
-        else: self.head = None
+        else:
+            self.head = None
 
     def insert_node(self, symbol):
         """
@@ -53,7 +55,8 @@ class _RandomExpressionTree:
         exp = ''
 
         if node is None:
-            return ''
+            exp += ''
+            return exp
 
         op = False
 
@@ -73,23 +76,52 @@ class _RandomExpressionTree:
     def __repr__(self):
         return _RandomExpressionTree._print_tree(self.head)
 
-    def valid_tree(self,node: _ExpressionNode) -> bool:
+    @staticmethod
+    def evaluate(node, **kwargs):
 
+        if not _ExpressionNode.is_operation(node.symbol):
+
+            # Is it a number?
+            if isinstance(node.symbol, int):
+                return node.symbol
+
+            # Is it a variable based on the data.
+            if node.symbol in kwargs:
+                return kwargs[node.symbol]
+
+        if node.symbol == '*':
+            return _RandomExpressionTree.evaluate(node.left, **kwargs) * _RandomExpressionTree.evaluate(node.right,
+                                                                                                        **kwargs)
+        elif node.symbol == '/':
+            # The result of a valid sub-tree evaluation will not yield zero as it was taken care in the validation code.
+            return _RandomExpressionTree.evaluate(node.left, **kwargs) / _RandomExpressionTree.evaluate(node.right,
+                                                                                                        **kwargs)
+        elif node.symbol == '+':
+            return _RandomExpressionTree.evaluate(node.left, **kwargs) + _RandomExpressionTree.evaluate(node.right,
+                                                                                                        **kwargs)
+        else:
+            return _RandomExpressionTree.evaluate(node.left, **kwargs) - _RandomExpressionTree.evaluate(node.right,
+                                                                                                        **kwargs)
+
+    def valid_tree(self, node: _ExpressionNode, **kwargs) -> bool:
         """
-        Defines a RET that represents a valid mathematical expression.
+        Ensures the RET represents a valid mathematical expression.
         An optimization function could assign a 0 fitness to an invalid
         RET that way we can ignore them as the expressions evolve.
         """
 
+        # Check the head node (Must be an operation).
         if node is self.head and node is None:
             return False
 
+        # Assume the RET is valid.
         valid = True
 
+        # Base case for the recursive method.
         if node is None:
             return True
 
-        # Rule 1. Head node must be an operation
+        # Rule 1. Head node must be an operation.
         elif node is self.head and not _ExpressionNode.is_operation(node.symbol):
             valid = False
 
@@ -100,14 +132,23 @@ class _RandomExpressionTree:
             if node.right is not None and not _ExpressionNode.is_operation(node.right.symbol):
                 valid = False
 
-        # Rule 3. Operations must contain two operands.
+        # Rule 3. Operations must contain two operands, Div by zero is undefined.
         elif _ExpressionNode.is_operation(node.symbol):
-            if node.left is None or node.right is None:
+            if node.left is None:
                 valid = False
+            elif node.right is None:
+                valid = False
+            elif node.symbol == '/':
 
-        # Rule 4. Division by zero. (For the case the number exists and is not a result of further operations.
-        elif node.symbol == '/' and node.right is not None and node.right.symbol == 0:
-            valid = False
+                if node.right.symbol == 0:
+                    valid = False
+                    # At this point we have to evaluate the sub-tree to the right of the division node
+                    # To ensure it does not evaluate to zero given the variables at kwargs.
+                else:
+                    sub_tree = _RandomExpressionTree(node.right.symbol)
+                    if not sub_tree.valid_tree(sub_tree.head, **kwargs) or _RandomExpressionTree.evaluate(node.right,
+                                                                                                          **kwargs) == 0:
+                        valid = False
 
         valid = valid and self.valid_tree(node.left)
         if not valid: return False
@@ -116,24 +157,28 @@ class _RandomExpressionTree:
 
         return valid
 
-    def evaluate(self):
-        pass
 
 ###
 # Demo:
-
 operations = ['*', '/', '+', '-']
 operations.extend([x for x in range(5)])
-operations.extend(['m','a'])
+operations.extend(['m', 'a'])
+import time
 
-# Generate 600 RET with 5 Nodes, print those that are valid.
-
-for i in range(600):
-    k = random.randint(0, len(operations)-1)
+# Generate n RET, print and evaluate those that are valid.
+for i in range(50000):
+    k = random.randint(0, len(operations) - 1)
     T = _RandomExpressionTree(operations[int(k)])
-    for q in range(4):
-        k = random.randint(0,len(operations)-1)
+    for q in range(random.randint(2, 8)):
+        k = random.randint(0, len(operations) - 1)
         T.insert_node(operations[int(k)])
-    if T.valid_tree(T.head):
-        print(T)
+
+    if T.valid_tree(T.head, a=10, m=5):
+        try:
+            print(T, '=')
+            result = _RandomExpressionTree.evaluate(T.head, a=10, m=5)
+            print(result)
+        except Exception as ex:
+            print(ex)
+            time.sleep(10)
         print('----------------')
