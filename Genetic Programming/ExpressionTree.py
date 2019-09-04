@@ -1,8 +1,12 @@
-###
 import random
 
-class _ExpressionNode:
+###
+# Implementing a Random Expression Tree (RET).
+# A RET is composed of Expression Nodes, these Nodes can take any symbol from a set of real numbers,
+# symbols based on the input data as well as arithmetic operations.
+#
 
+class _ExpressionNode:
     operations = ['*', '/', '+', '-']
 
     def __init__(self, symbol):
@@ -18,7 +22,7 @@ class _ExpressionNode:
 class _RandomExpressionTree:
 
     def __init__(self, symbol):
-        """Head Node must be an operation"""
+        """Head Node must always be an operation."""
         if _ExpressionNode.is_operation(symbol):
             self.head: _ExpressionNode = _ExpressionNode(symbol)
         else: self.head = None
@@ -72,9 +76,9 @@ class _RandomExpressionTree:
     def valid_tree(self,node: _ExpressionNode) -> bool:
 
         """
-        Defines if the tree represents a valid expression.
+        Defines a RET that represents a valid mathematical expression.
         An optimization function could assign a 0 fitness to an invalid
-        Tree that way we can ignore them as the expressions evolve.
+        RET that way we can ignore them as the expressions evolve.
         """
 
         if node is self.head and node is None:
@@ -112,15 +116,22 @@ class _RandomExpressionTree:
 
         return valid
 
+    def evaluate(self):
+        pass
+
+###
+# Demo:
 
 operations = ['*', '/', '+', '-']
 operations.extend([x for x in range(5)])
 operations.extend(['m','a'])
 
+# Generate 600 RET with 5 Nodes, print those that are valid.
+
 for i in range(600):
     k = random.randint(0, len(operations)-1)
     T = _RandomExpressionTree(operations[int(k)])
-    for q in range(2):
+    for q in range(4):
         k = random.randint(0,len(operations)-1)
         T.insert_node(operations[int(k)])
     if T.valid_tree(T.head):

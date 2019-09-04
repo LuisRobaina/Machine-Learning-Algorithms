@@ -1,15 +1,22 @@
 """
 Will explore the idea of programs that optimize through a process that mimics Natural selection. 'The Fittest Survives'
 We need:
-1. Problem to solve ?
-2. A fitness function. What makes a good solution?
-3. A way to represent solutions similar to how DNA represents living organisms.
+1. Problem to solve?
+    -
+2. A fitness function ak=-43wa What makes a good solution?
+    - We want to reward RET that archive lower average divergence from the training data as well as smaller Trees.
+    Fit = 1/(#Nodes) * 1/(Sum(T-h)^2)/#T
+    Refer to fit for more details.
+
+3. A way to represent solutions similar to how DNA represents living organisms
+    - For this script a complementary
+    ExpressionTree.py file implements the representation of our individual candidates.
+
 """
 
-# Read the data from a cvs file
 import pandas as pd
-import random
 
+# Load the training data from a csv file.
 data = pd.read_csv('data.csv')
 
 # Our programs will have a set of symbols they can use
