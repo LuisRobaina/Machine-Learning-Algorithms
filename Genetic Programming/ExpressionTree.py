@@ -158,27 +158,28 @@ class _RandomExpressionTree:
         return valid
 
 
-###
-# Demo:
-operations = ['*', '/', '+', '-']
-operations.extend([x for x in range(5)])
-operations.extend(['m', 'a'])
-import time
-
-# Generate n RET, print and evaluate those that are valid.
-for i in range(50000):
-    k = random.randint(0, len(operations) - 1)
-    T = _RandomExpressionTree(operations[int(k)])
-    for q in range(random.randint(2, 8)):
-        k = random.randint(0, len(operations) - 1)
-        T.insert_node(operations[int(k)])
-
-    if T.valid_tree(T.head, a=10, m=5):
-        try:
-            print(T, '=')
-            result = _RandomExpressionTree.evaluate(T.head, a=10, m=5)
-            print(result)
-        except Exception as ex:
-            print(ex)
-            time.sleep(10)
-        print('----------------')
+#
+# ###
+# # Demo:
+# operations = ['*', '/', '+', '-']
+# operations.extend([x for x in range(5)])
+# operations.extend(['m', 'a'])
+# import time
+#
+# # Generate n RET, print and evaluate those that are valid.
+# for i in range(50000):
+#     k = random.randint(0, len(operations) - 1)
+#     T = _RandomExpressionTree(operations[int(k)])
+#     for q in range(random.randint(2, 8)):
+#         k = random.randint(0, len(operations) - 1)
+#         T.insert_node(operations[int(k)])
+#
+#     if T.valid_tree(T.head, a=10, m=5):
+#         try:
+#             print(T, '=')
+#             result = _RandomExpressionTree.evaluate(T.head, a=10, m=5)
+#             print(result)
+#         except Exception as ex:
+#             print(ex)
+#             time.sleep(10)
+#         print('-------------')
