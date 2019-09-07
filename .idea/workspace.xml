@@ -2,7 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dc6c6b08-0344-4038-833b-e030f1fb6d68" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/Genetic Programming/ExpressionTree.py" beforeDir="false" afterPath="$PROJECT_DIR$/Genetic Programming/ExpressionTree.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GeneticProgramming/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Genetic Programming/ExpressionTree.py" beforeDir="false" afterPath="$PROJECT_DIR$/GeneticProgramming/ExpressionTree.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Genetic Programming/GeneticAlgorithm.py" beforeDir="false" afterPath="$PROJECT_DIR$/GeneticProgramming/GeneticAlgorithm.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Genetic Programming/data.csv" beforeDir="false" afterPath="$PROJECT_DIR$/GeneticProgramming/data.csv" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -13,19 +17,22 @@
   <component name="FileEditorManager">
     <leaf>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Genetic Programming/ExpressionTree.py">
+        <entry file="file://$PROJECT_DIR$/GeneticProgramming/GeneticAlgorithm.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="293">
-              <caret line="162" column="8" lean-forward="true" selection-start-line="162" selection-start-column="8" selection-end-line="162" selection-end-column="8" />
+            <state relative-caret-position="292">
+              <caret line="38" column="21" selection-start-line="38" selection-start-column="21" selection-end-line="38" selection-end-column="21" />
+              <folding>
+                <element signature="e#816#868#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Genetic Programming/GeneticAlgorithm.py">
+        <entry file="file://$PROJECT_DIR$/GeneticProgramming/ExpressionTree.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="29">
-              <caret line="5" column="30" selection-start-line="5" selection-start-column="30" selection-end-line="5" selection-end-column="30" />
+            <state relative-caret-position="-1079">
+              <caret line="17" column="13" selection-start-line="17" selection-start-column="8" selection-end-line="17" selection-end-column="13" />
             </state>
           </provider>
         </entry>
@@ -40,6 +47,9 @@
     </option>
   </component>
   <component name="FindInProjectRecents">
+    <findStrings>
+      <find>operations</find>
+    </findStrings>
     <replaceStrings>
       <replace />
     </replaceStrings>
@@ -57,14 +67,18 @@
         <option value="$PROJECT_DIR$/pipeline.py" />
         <option value="$PROJECT_DIR$/Dicision Tree/pipeline.py" />
         <option value="$PROJECT_DIR$/Genetic Programming/ExpressionTree.py" />
+        <option value="$PROJECT_DIR$/Genetic Programming/__init__.py" />
+        <option value="$PROJECT_DIR$/Genetic Programming/GeneticAlgorithm.py" />
+        <option value="$PROJECT_DIR$/GeneticProgramming/ExpressionTree.py" />
+        <option value="$PROJECT_DIR$/GeneticProgramming/GeneticAlgorithm.py" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="1" />
-    <option name="y" value="28" />
-    <option name="width" value="1440" />
-    <option name="height" value="836" />
+  <component name="ProjectFrameBounds" extendedState="1">
+    <option name="x" value="31" />
+    <option name="y" value="52" />
+    <option name="width" value="1366" />
+    <option name="height" value="745" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -81,7 +95,7 @@
             <path>
               <item name="ML" type="b2602c69:ProjectViewProjectNode" />
               <item name="ML" type="462c0819:PsiDirectoryNode" />
-              <item name="Genetic Programming" type="462c0819:PsiDirectoryNode" />
+              <item name="GeneticProgramming" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -111,8 +125,8 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.expressionTree">
-    <configuration name="DecisionTrees" type="PythonConfigurationType" factoryName="Python" temporary="true">
+  <component name="RunManager" selected="Python.GeneticAlgorithm (1)">
+    <configuration name="ExpressionTree" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="ML" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -120,11 +134,32 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/GeneticProgramming" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Dicision Tree/DecisionTrees.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/GeneticProgramming/ExpressionTree.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="GeneticAlgorithm (1)" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="ML" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/GeneticProgramming" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/GeneticProgramming/GeneticAlgorithm.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -198,10 +233,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.GeneticAlgorithm (1)" />
+        <item itemvalue="Python.ExpressionTree" />
         <item itemvalue="Python.expressionTree" />
         <item itemvalue="Python.GeneticAlgorithm" />
         <item itemvalue="Python.pipeline" />
-        <item itemvalue="Python.DecisionTrees" />
       </list>
     </recent_temporary>
   </component>
@@ -219,19 +255,19 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1" y="28" width="1440" height="836" extended-state="0" />
+    <frame x="0" y="0" width="1440" height="900" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Favorites" side_tool="true" />
-      <window_info content_ui="combo" id="Project" order="0" weight="0.22410148" />
+      <window_info content_ui="combo" id="Project" order="0" weight="0.22379182" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Version Control" />
       <window_info anchor="bottom" id="Python Console" weight="0.3266129" />
-      <window_info anchor="bottom" id="Terminal" weight="0.31854838" />
+      <window_info anchor="bottom" id="Terminal" weight="0.31686747" />
       <window_info anchor="bottom" id="Event Log" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.5013441" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32924962" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.22817764" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -278,17 +314,26 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Genetic Programming/GeneticAlgorithm.py">
+    <entry file="file://$PROJECT_DIR$/GeneticProgramming/__init__.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/GeneticProgramming/data.csv">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/GeneticProgramming/ExpressionTree.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="29">
-          <caret line="5" column="30" selection-start-line="5" selection-start-column="30" selection-end-line="5" selection-end-column="30" />
+        <state relative-caret-position="-1079">
+          <caret line="17" column="13" selection-start-line="17" selection-start-column="8" selection-end-line="17" selection-end-column="13" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Genetic Programming/ExpressionTree.py">
+    <entry file="file://$PROJECT_DIR$/GeneticProgramming/GeneticAlgorithm.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="293">
-          <caret line="162" column="8" lean-forward="true" selection-start-line="162" selection-start-column="8" selection-end-line="162" selection-end-column="8" />
+        <state relative-caret-position="292">
+          <caret line="38" column="21" selection-start-line="38" selection-start-column="21" selection-end-line="38" selection-end-column="21" />
+          <folding>
+            <element signature="e#816#868#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
