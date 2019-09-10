@@ -185,17 +185,16 @@ class RandomExpressionTree:
 # Demo:
 # ---------------------------------------------------------
 
-# Extend the basic set of arithmetic operations to contain:
-# vars : Set of variables in the input data
-# k_range : Range of constants allowed in the RET.
-
+# # Extends the basic set of arithmetic operations to contain:
+# # vars : Set of variables in the input data
+# # k_range : Range of constants allowed in the RET.
+#
 # ExpressionNode.extend_symbols(vars = ['a','m'], k_range=5)
-
-
-# Generate n RETs, print and evaluate those that are valid.
-# for i in range(5000):
+#
+# # Generate n RETs, print and evaluate those that are valid.
+# for i in range(500000):
 #     T = RandomExpressionTree()
-#     for q in range(random.randint(2, 8)):
+#     for q in range(random.randint(2, 16)):
 #         symbol = ExpressionNode.rand_symbol()
 #         T.insert_node(symbol)
 #

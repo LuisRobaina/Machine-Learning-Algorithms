@@ -1,17 +1,16 @@
 """
-Will explore the idea of programs that optimize through a process that mimics Natural selection. 'The Fittest Survives'
-We need:
+    This code explores the idea of programs that optimize through a process that mimics Natural selection.
+    'The Fittest Survives' We need:
 1. Problem to solve?
     - Given the necessary data, can a genetic algorithm evolve to the correct arithmetic expression that describes
-      the relation between Force, Mass, and Acceleration. F=ma
+      the relation between Force, Mass, and Acceleration. F=m*a
 2. A fitness function aka: What makes a good solution?
-    - We want to reward RET that archive lower average divergence from the training data as well as smaller Trees.
+    - We want to reward RETs that archive lower average divergence from the training data as well as smaller Trees.
       Fit = 1/(#Nodes) * 1/((Sum(T-h)^2)/#T)
-      Refer to fit for more details.
-
+      Refer to method fit() for more details.
 3. A way to represent solutions similar to how DNA represents living organisms
     - For this script a complementary ExpressionTree.py file implements the representation of our individual
-      candidates as expression Trees.
+      candidates as Expression Trees (ET).
 """
 
 from GeneticProgramming import ExpressionTree as RET
@@ -52,7 +51,7 @@ def update_plot(newdata, x_lim):
 
 
 def _first_gen(gen_size: int, nodes_range: int, var: [any], k_range: int) -> [RET]:
-    """Randomly generate the first generation of Expression Trees."""
+    """Randomly generate the first generation of RET."""
     count = 0
 
     # Extend the set of arithmetic symbols to the variables allowed, and the range of constants [0,k]
@@ -73,25 +72,27 @@ def _first_gen(gen_size: int, nodes_range: int, var: [any], k_range: int) -> [RE
 
 def _fit(individual: RET.RandomExpressionTree, data):
     """
-    Compute the fitness of a given tree as follows:
-    Assumptions on the data: Target will be at the last column.
-    m is at column 0, a is at column 1.
+        Compute the fitness of a given tree as follows:
+        Assumptions on the data: Target will be at the last column.
+        m is at column 0, a is at column 1.
     """
     sqr_difference = 0
     for sample in data:
         hypothesis = RET.RandomExpressionTree.evaluate(individual.root, m=sample[0], a=sample[1])
         sqr_difference += pow(sample[-1] - hypothesis, 2)
 
-    # Apply Sigmoid function to result
-    fit = (1 / individual.nodes_count) * (1 / (sqr_difference / len(data)))
-    return 1 / (1 + math.pow(math.e, -fit))
 
+    avg_divergence = (1 / (sqr_difference / len(data)) )
+    print('div', avg_divergence)
+    fit = ( 1/individual.nodes_count ) * avg_divergence
+    # Apply Sigmoid function to result.
+    return 1 / (1 + math.pow(math.e, -fit))
 
 def evolve(data):
     global iterations
     """
-    As we evolve our RET, will keep track of the fittest individuals in the population
-    Will evolve by matting the fittest RET in the populations, as well as randomly mutating excising RETs.
+        As we evolve our ET, will keep track of the fittest individuals in the population
+        Will evolve by matting the fittest RET in the populations, as well as randomly mutating excising ETs.
     """
     # Assume that the first two RET are the fittest.
     RET_a, RET_b = REF[0], REF[1]
@@ -108,6 +109,10 @@ def evolve(data):
 
 
 def fittest(ignore=None):
+    """
+        Returns the fittest ET in the population.
+        if ignore is not None then the RET referenced by ignore will not be considered.
+    """
     most_fit = 0
     # Find the two fittest individual RETs.
     for RET_x in REF:
@@ -122,10 +127,10 @@ def fittest(ignore=None):
 
 def cross(candidate_1: RET.RandomExpressionTree, candidate_2: RET.RandomExpressionTree):
     """
-    Perform a cross of the candidates to generate two new individuals towards the population of RET
-    To archive this, will randomly choose a node on candidate_1 and make this node become a random node on the
-    candidate_2 tree, effectively generating a new tree (which is always valid).
-    The same process will be done from candidate_2 to candidate_1.
+        Perform a cross of the candidates to generate two new individuals towards the population of ET
+        To archive this, will randomly choose a node on candidate_1 and make this node become a random node on the
+        candidate_2 tree, effectively generating a new tree (which is always valid).
+        The same process will be done from candidate_2 to candidate_1.
     """
     candidate_node_a = _select_node(candidate_1)
     candidate_node_b = _select_node(candidate_2)
@@ -166,11 +171,12 @@ def mutate(candidate):
 ###
 # Execute the Genetic Algorithm.
 # 1. Generate the first generation of RETs.
-_first_gen(gen_size=100, nodes_range=8, var=['m', 'a'], k_range=0)
+_first_gen(gen_size=100, nodes_range=8, var=['m', 'a'], k_range=10)
 
-# 2. Evolve the RETs.
+# For graphing purposes.
 iterations = 0
 x_lim = 10
+# 2. Evolve the RETs.
 while True:
     fit = evolve(data)
     iterations += 1
