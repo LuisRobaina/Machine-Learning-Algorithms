@@ -17,27 +17,31 @@ We need:
 from GeneticProgramming import ExpressionTree as RET
 import pandas as pd
 import random
+import math
 
 # Load the training data from a csv file.
 data = pd.read_csv('data.csv').values
 
 # REF = Random Expression Forest (Collection of RET).
-
 REF = []
 
 import matplotlib.pyplot as plt
 
 # generate axes object
 ax = plt.axes()
+# Setting up the axis.
+plt.title('Operation Fitness')
+plt.xlabel('Iterations')
+plt.ylabel('Fitness')
 
-# set limits
-plt.xlim(0, 1000000)
-plt.ylim(0, 1000000)
+# Sets limits
+plt.ylim(0, 1)
 datax, datay = [], []
 
 
-def update_plot(newdata):
+def update_plot(newdata, x_lim):
     # Add new data to axes
+    plt.xlim(0, x_lim)
     ax.scatter(newdata[0], newdata[1])
     datax.append(newdata[0])
     datay.append(newdata[1])
@@ -78,43 +82,42 @@ def _fit(individual: RET.RandomExpressionTree, data):
         hypothesis = RET.RandomExpressionTree.evaluate(individual.root, m=sample[0], a=sample[1])
         sqr_difference += pow(sample[-1] - hypothesis, 2)
 
-    return (1 / individual.nodes_count) * (1 / (sqr_difference / len(data)))
+    # Apply Sigmoid function to result
+    fit = (1 / individual.nodes_count) * (1 / (sqr_difference / len(data)))
+    return 1 / (1 + math.pow(math.e, -fit))
 
 
 def evolve(data):
     global iterations
     """
-    As we evolve our operations will keep track of the fittest individual in the population
-    Will evolve by matting the fittest individuals in the populations, as well as randomly mutating excising individuals.
+    As we evolve our RET, will keep track of the fittest individuals in the population
+    Will evolve by matting the fittest RET in the populations, as well as randomly mutating excising RETs.
     """
-    overall_fittest = 0
-    most_fit = 0
-    # Assume that the first two are the fittest.
+    # Assume that the first two RET are the fittest.
     RET_a, RET_b = REF[0], REF[1]
 
+    RET_a, fit_a = fittest()
+    RET_b, fit_b = fittest(ignore=RET_a)
+    print(RET_a, RET_b)
+
+    overall_fittest = fit_a if fit_a >= fit_b else fit_b
+    # Cross the two individuals.
+    cross(RET_a, RET_b)
+
+    return overall_fittest
+
+
+def fittest(ignore=None):
+    most_fit = 0
     # Find the two fittest individual RETs.
     for RET_x in REF:
+        if RET_x is ignore:
+            continue
         x_fit = _fit(RET_x, data)
         if x_fit > most_fit:
             RET_a = RET_x
             most_fit = x_fit
-    overall_fittest = most_fit
-    most_fit = 0
-    for RET_x in REF:
-        if RET_x is RET_a:
-            continue
-        x_fit = _fit(RET_x, data)
-        if x_fit > most_fit:
-            RET_b = RET_x
-            most_fit = x_fit
-    if overall_fittest < most_fit:
-        overall_fittest = most_fit
-
-    # Cross the two individuals.
-    cross(RET_a, RET_b)
-    iterations += 1
-    print('Fittest =', overall_fittest)
-    update_plot([iterations, overall_fittest])
+    return RET_x, most_fit
 
 
 def cross(candidate_1: RET.RandomExpressionTree, candidate_2: RET.RandomExpressionTree):
@@ -124,7 +127,6 @@ def cross(candidate_1: RET.RandomExpressionTree, candidate_2: RET.RandomExpressi
     candidate_2 tree, effectively generating a new tree (which is always valid).
     The same process will be done from candidate_2 to candidate_1.
     """
-
     candidate_node_a = _select_node(candidate_1)
     candidate_node_b = _select_node(candidate_2)
 
@@ -133,8 +135,8 @@ def cross(candidate_1: RET.RandomExpressionTree, candidate_2: RET.RandomExpressi
 
 
 def _select_node(candidate_tree):
-    steps = random.randint(0, 5)
-    print('STEPS = ', steps)
+    steps = random.randint(0, 8)
+
     candidate_node = candidate_tree.root
     if steps == 0:
         return candidate_node
@@ -161,8 +163,22 @@ def mutate(candidate):
     pass
 
 
-# Generate the first generation.
-_first_gen(gen_size=1000, nodes_range=20, var=['m', 'a'], k_range=100)
+###
+# Execute the Genetic Algorithm.
+# 1. Generate the first generation of RETs.
+_first_gen(gen_size=100, nodes_range=8, var=['m', 'a'], k_range=0)
+
+# 2. Evolve the RETs.
 iterations = 0
+x_lim = 10
 while True:
-    evolve(data)
+    fit = evolve(data)
+    iterations += 1
+    if iterations == x_lim:
+        x_lim += 5
+    update_plot([iterations, fit], x_lim)
+    if fit >= 0.99:
+        break
+
+# Get Result:
+print(fittest())
