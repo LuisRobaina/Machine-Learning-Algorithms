@@ -11,7 +11,7 @@ class ExpressionNode:
     arithmetic_operations = ['*', '/', '+', '-']
     operations = []
 
-    def __init__(self, symbol, **kwargs):
+    def __init__(self, symbol):
         self.symbol = symbol
         self.left: ExpressionNode = None
         self.right: ExpressionNode = None
@@ -34,6 +34,7 @@ class ExpressionNode:
     def extend_symbols(vars: [any], k_range: int):
         ExpressionNode.operations.extend(ExpressionNode.arithmetic_operations)
         ExpressionNode.operations.extend(vars)
+        # Only allowing integers ???
         ExpressionNode.operations.extend([x for x in range(k_range + 1)])
         random.shuffle(ExpressionNode.operations)
 
